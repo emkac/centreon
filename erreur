@@ -1,0 +1,27 @@
+erreur 1
+il se peut que le central ne demarre pas apres avoir installer le central
+il faut dans ce cas voir si le cbd est start
+si le cbd n'est pas start, il faut faire un chech dans le /etc/init.d/cbd puis chercher le pidfile 
+pidfile="${pid_path}/${daemon_name}.pid"
+le lien est composer de ${pid_path} qui est une variable egale a /var/run. suivit de ${daemon_name}.pid qui est egale a cbd.pid
+suprimer les fichiers /var/run/cbd*.pid puis redemarer le cbd
+/etc/init.d/cbd restart
+
+
+erreur2
+il se peut que le poller ou collecteur installer ne demarre pas
+il faut savoir que pour que le poller arrive a envoyer les info au central, il faut une connexion ssh entre les deux serveurs
+pour cela il faut generer une cle publique ssh avec la commande
+ssh-keygen 
+puis exporter cette cle vers le polleur et vis versa
+il faut le faire pour le root sur le poller et il faut le faire pour les users centreon et root pour le central
+cela di, il faut generer la cle de l'user centreon et l'exporter vers le poller avec cette commande
+ssh-copy-id -i .ssh/id_rsa.pub root@10.100.30.144  ou 10.100.30.144 est l'ip du poller
+egalement depuis le home du root faire
+ssh-copy-id -i .ssh/id_rsa.pub root@10.100.30.144
+ensuite se metre sur le poller et faire la meme chose pour l'user root.
+ssh-copy-id -i .ssh/id_rsa.pub root@10.100.30.143
+ssh-copy-id -i .ssh/id_rsa.pub centreon@10.100.30.144
+
+erreur 3  base de donnee non accexible
+il faut definir un mot de passe pour l'utilisateur centreon qui est charger de communiquer avec la base de donnee centreon.
