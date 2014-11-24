@@ -25,3 +25,8 @@ ssh-copy-id -i .ssh/id_rsa.pub centreon@10.100.30.144
 
 erreur 3  base de donnee non accexible
 il faut definir un mot de passe pour l'utilisateur centreon qui est charger de communiquer avec la base de donnee centreon.
+
+erreur 4:  poller not start
+si le depuis l'interface du central on a l'erreur poller not running, some database are not start 
+il faut prendre attache sur le poller et voir si le centengine a demarer dans le cas contraire le demarer
+/etc/init.d/centengin start
